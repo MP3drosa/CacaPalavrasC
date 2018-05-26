@@ -9,25 +9,21 @@
 
 void add_palavra(char M[][TAM], char S[][TAM])
 {
-	int a = 0, j, t = 0, k, i, c = 0, l = 0, aux, p = 0;
+	int a = 0, j, t = 0, k, i, c = 0, l = 0, aux, p = 0, f = 0;
 	char palavra[256];
-	printf("Deseja adicionar quantas palavras?\n\n");
-	scanf("%d", &p);
-	for(aux = 0; aux != p; aux ++)
-	{
-	    printf("Digite uma palavra para adicionar: \n\n");
-	    gets(palavra);
+	    printf("\nDigite uma palavra para adicionar: \n\n");
+	    scanf("%s", palavra);
         fflush(stdin);
         for(j = 0; palavra[j] != '\0'; j++)
 	        palavra[j] = toupper(palavra[j]);
-	    k = rand()%7 + 1;
+	    k = rand()%7;
 	    t = strlen(palavra);
 	    do
 	    { 
 	        l = rand()%29;
 	        c = rand()%29;   
-		}while(t <= l && t <= c && l && t <= 30-t && t <= 30-t);
-		if( k == 1)
+		}while((t < l && t < c )&& ( l > 30 - t  && c > 30 - t));
+		if( k == 0)
         {
             for(i = 0; palavra[i] != '\0'; i++, c++)
   	        {
@@ -35,7 +31,7 @@ void add_palavra(char M[][TAM], char S[][TAM])
    	            S[l][c] = '.';                
 			}
 	    }
-        else if( k == 2)
+        else if( k == 1)
 	    {
     	    for(i = 0; palavra[i] != '\0'; i++, c++, l--)
     	    {
@@ -43,7 +39,7 @@ void add_palavra(char M[][TAM], char S[][TAM])
     	        S[l][c] = '.';
             }
 	    } 	
-	    else if( k == 3)
+	    else if( k == 2)
         {
     	    for(i = 0; palavra[i] != '\0'; i++, l--)
     	    {
@@ -51,7 +47,7 @@ void add_palavra(char M[][TAM], char S[][TAM])
     	        S[l][c] = '.';
             }
  	    }
-	    else if( k == 4)
+	    else if( k == 3)
         {
     	    for(i = 0; palavra[i] != '\0'; i++, c--, l--)
     	    {
@@ -59,7 +55,7 @@ void add_palavra(char M[][TAM], char S[][TAM])
     	        S[l][c] = '.';
             }
 	    }
-	    else if( k == 5)
+	    else if( k == 4)
         {
     	    for(i = 0; palavra[i] != '\0'; i++, c--)
     	    {
@@ -67,7 +63,7 @@ void add_palavra(char M[][TAM], char S[][TAM])
     	        S[l][c] = '.';
             }
  	    }
-	    else if( k == 6)
+	    else if( k == 5)
         {
     	    for(i = 0; palavra[i] != '\0'; i++, c--, l++)
     	    {
@@ -75,7 +71,7 @@ void add_palavra(char M[][TAM], char S[][TAM])
     	        S[l][c] = '.';
             }
 	    }	
-	    else if( k == 7)
+	    else if( k == 6)
         {
     	    for(i = 0; palavra[i] != '\0'; i++, l++)
     	    {
@@ -83,16 +79,14 @@ void add_palavra(char M[][TAM], char S[][TAM])
     	        S[l][c] = '.';
             }
 	    } 
-	    else if( k == 8)
+	    else if( k == 7)
         {
     	    for(i = 0; palavra[i] != '\0'; i++, c++, l++)
     	    {
     	        M[l][c] = palavra[i];
     	        S[l][c] = '.';
             }
-	    }
-	 k = 0;
-	}   
+	    }   
 }
 
 void copiar_matriz(char M[][TAM], char S[][TAM])
@@ -128,14 +122,21 @@ void imprimir_matriz(char M[][TAM])
 
 int main()
 {
-	int a, j, i;
+	int a = 1, j, i;
 	srand(time(0));
 	char M[TAM][TAM], S[TAM][TAM], k;
+	printf("\n                            GERADOR CACA PALAVRAS 1.0\n\n\n");
 	gerar_matriz(M);
 	copiar_matriz(M, S);
-    add_palavra(M, S);
+	while( a != 0)
+	{
+	    add_palavra(M, S);
+	    printf("\nDeseja adicionar mais palavras?\nSim - 1\nNao - 0\n\n");
+	    scanf("%d", &a);
+	}   
+	printf("\n\n");
 	imprimir_matriz(M);
-	printf("Aperte enter para ver a solucao.\n");
+	printf("\n\nAperte enter para ver a solucao.\n");
 	getch();
 	printf("\n\n\n---------------------------------------SOLUCAO--------------------------------------- \n\n\n");
 	imprimir_matriz(S);
